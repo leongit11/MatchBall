@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "882169653078",
+    "project_id": "matchball-50f8a",
+    "storage_bucket": "matchball-50f8a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:882169653078:android:9a4aa5e3075d51d5be18f7",
+        "android_client_info": {
+          "package_name": "de.hwr.matchball"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmrF3504F4gH810-58uPRWaVYE3Ulf_AQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
