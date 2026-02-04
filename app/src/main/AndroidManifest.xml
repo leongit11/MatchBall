@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MatchBall">
         <activity
+            android:name=".CreateMatchActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
@@ -25,9 +28,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
     </application>
 
 </manifest>

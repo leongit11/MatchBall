@@ -1,6 +1,8 @@
 package de.hwr.matchball;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,5 +22,14 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Button btnGoCreateMatch = findViewById(R.id.btnGoCreateMatch);
+        //Button btnGoAllMatches = findViewById(R.id.btnGoAllMatches); muss noch implementiert werden
+
+        btnGoCreateMatch.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CreateMatchActivity.class);
+            startActivity(intent);
+        });
+
     }
 }

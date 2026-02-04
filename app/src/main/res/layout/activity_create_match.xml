@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Create Match"
+            android:textStyle="bold"
+            android:textSize="26sp"
+            android:gravity="center"
+            android:textColor="@color/primary_green"/>
+
+        <EditText
+            android:id="@+id/Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Titel (z.B. Sonntags Kick)"
+            android:layout_marginTop="16dp"
+            />
+
+        <EditText
+            android:id="@+id/Date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Datum (z.B. 14.02.2026)"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/Time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Uhrzeit (z.B. 18:30)"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/Location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ort (z.B. Tempelhofer Feld)"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/MinPlayers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Min Spieler (z.B. 10 für 5 vs 5)"
+            android:inputType="number"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/Notes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Notizen (optional)"
+            android:layout_marginTop="12dp" />
+
+        <Button
+            android:id="@+id/btnCreate"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Match erstellen"
+            android:layout_marginTop="18dp"
+            android:backgroundTint="@color/primary_green"
+            />
+
+    </LinearLayout>
+</ScrollView>
