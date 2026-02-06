@@ -23,15 +23,14 @@
 
     <Button
         android:id="@+id/btnGoCreateMatch"
+        android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginStart="48dp"
         android:layout_marginBottom="208dp"
+        android:backgroundTint="@color/primary_green"
         android:text="Create Match"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:backgroundTint="@color/primary_green"
-        android:layout_width="0dp"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnGoAllMatches"

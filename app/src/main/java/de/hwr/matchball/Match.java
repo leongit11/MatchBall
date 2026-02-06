@@ -3,15 +3,26 @@ package de.hwr.matchball;
 import com.google.firebase.firestore.ServerTimestamp;
 import com.google.firebase.Timestamp;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class Match {
 
     public String title;
     public String date;
     public String time;
     public String location;
+
     public int minPlayers;
     public String notes;
     public String createdByUid;
+
+    public List<String> participantUserIds;   // UIDs
+    public String status;                     // open, cancelled, completed
+    public Timestamp startAt;                 // startzeit prüfen
+
+
 
     @ServerTimestamp
     public Timestamp createdAt;
@@ -28,6 +39,12 @@ public class Match {
         this.minPlayers = minPlayers;
         this.notes = notes;
         this.createdByUid = createdByUid;
+        this.startAt = startAt;
+
+
+        this.status = "open";
+        this.participantUserIds = new ArrayList<>();
+        this.participantUserIds.add(createdByUid);
         this.createdAt = null; // Firestore setzt das serverseitig
     }
 }

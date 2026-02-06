@@ -18,6 +18,18 @@
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MatchDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MyMatchesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NotesActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="true">
             <intent-filter>
