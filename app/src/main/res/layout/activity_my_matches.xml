@@ -1,5 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:padding="16dp"
+    tools:context=".MyMatchesActivity">
+<!-- Back Button -->
+    <Button
+        android:id="@+id/btnBackAllMatches"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="← All Matches"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:backgroundTint="@color/primary_green"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <!-- Titel-->
+    <TextView
+        android:id="@+id/tvPageTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="My Matches"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary_green"
+        android:gravity="center"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/btnBackAllMatches"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <!-- Created Matches anzeigen -->
+    <TextView
+        android:id="@+id/tvCreatedHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Created Matches"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPageTitle" />
+
+    <!-- RecyclerView nur Container, echte Daten erst per Adapter -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCreatedMatches"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvCreatedHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_my_match"/>
+
+    <!-- Joined Matches anzeigen -->
+    <TextView
+        android:id="@+id/tvJoinedHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="344dp"
+        android:text="Joined Matches"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvCreatedMatches" />
+    <!-- joined liste ohne adapter leer  -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvJoinedMatches"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvJoinedHeader"
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/item_my_match" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
