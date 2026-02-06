@@ -10,16 +10,17 @@
     tools:context=".MatchDetailActivity">
 
     <!-- Back -->
-    <TextView
+    <Button
         android:id="@+id/tvBackToMatches"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="← Back to My Matches"
         android:textColor="@color/primary_green"
-        android:textStyle="bold"
+        android:textColorLink="#009688"
         android:textSize="16sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Title -->
     <TextView
