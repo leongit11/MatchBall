@@ -2,6 +2,7 @@ package de.hwr.matchball;
 
 import android.os.Bundle;
 import android.widget.Toast;
+import android.content.Intent;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,9 +41,11 @@ public class AllMatchesActivity extends AppCompatActivity {
 
         rvMatches = findViewById(R.id.rvMatches);
 
-        adapter = new MatchAdapter(items, matchId ->
-                Toast.makeText(this, "Clicked Match: " + matchId, Toast.LENGTH_SHORT).show()
-        );
+        adapter = new MatchAdapter(items, matchId -> {
+            Intent i = new Intent(AllMatchesActivity.this, MatchDetailActivity.class);
+            i.putExtra("matchId", matchId);
+            startActivity(i);
+        }); // Klick navigiert zu Match Details Activity
 
         rvMatches.setLayoutManager(new LinearLayoutManager(this));
         rvMatches.setAdapter(adapter);

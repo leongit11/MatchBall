@@ -20,7 +20,7 @@ public class Match {
 
     public List<String> participantUserIds;   // UIDs
     public String status;                     // open, cancelled, completed
-    public Timestamp startAt;                 // startzeit prüfen
+    //public Timestamp startAt;                 // startzeit prüfen
 
 
 
@@ -39,7 +39,7 @@ public class Match {
         this.minPlayers = minPlayers;
         this.notes = notes;
         this.createdByUid = createdByUid;
-        this.startAt = startAt;
+        //this.startAt = startAt;
 
 
         this.status = "open";
