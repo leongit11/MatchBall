@@ -24,11 +24,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
         Button btnGoCreateMatch = findViewById(R.id.btnGoCreateMatch);
-        //Button btnGoAllMatches = findViewById(R.id.btnGoAllMatches); muss noch implementiert werden
+        Button btnGoAllMatches = findViewById(R.id.btnGoAllMatches);
+
+
 
         btnGoCreateMatch.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, CreateMatchActivity.class);
             startActivity(intent);
+        });
+
+        btnGoAllMatches.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, AllMatchesActivity.class));
         });
 
     }
