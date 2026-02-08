@@ -18,7 +18,8 @@ public class Match {
     public String notes;
     public String createdByUid;
 
-    public List<String> participantUserIds;   // UIDs
+    public List<String> participantUserIds;// UIDs
+    public List<String> participantEmails;
     public String status;                     // open, cancelled, completed
     //public Timestamp startAt;                 // startzeit prüfen
 
@@ -44,7 +45,8 @@ public class Match {
 
         this.status = "open";
         this.participantUserIds = new ArrayList<>();
-        this.participantUserIds.add(createdByUid);
+        this.participantEmails = new ArrayList<>();
+        //this.participantUserIds.add(createdByUid);
         this.createdAt = null; // Firestore setzt das serverseitig
     }
 }

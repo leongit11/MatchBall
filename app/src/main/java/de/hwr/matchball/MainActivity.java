@@ -37,5 +37,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, AllMatchesActivity.class));
         });
 
+        Button btnMyMatches = findViewById(R.id.btnMyMatches);
+
+        btnMyMatches.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, MyMatchesActivity.class));
+        });
+
     }
 }

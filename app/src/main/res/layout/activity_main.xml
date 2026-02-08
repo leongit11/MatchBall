@@ -42,5 +42,20 @@
         app:layout_constraintStart_toEndOf="@id/btnGoCreateMatch"
         app:layout_constraintTop_toTopOf="@id/btnGoCreateMatch" />
 
+    <Button
+        android:id="@+id/btnMyMatches"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="48dp"
+        android:backgroundTint="@color/primary_green"
+        android:text="My Matches"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnGoCreateMatch" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

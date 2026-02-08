@@ -75,8 +75,8 @@ public class CreateMatchActivity extends AppCompatActivity {
             return;
         }
 
-        String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        Match match = new Match(title, date, time, location, minPlayers, notes, email);
+        String uid = user.getUid();
+        Match match = new Match(title, date, time, location, minPlayers, notes, uid);
 
         FirebaseFirestore.getInstance()
                 .collection("matches")

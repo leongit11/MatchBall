@@ -150,22 +150,19 @@ public class MatchDetailActivity extends AppCompatActivity {
         tvCreatedBy.setText("Created by: " + hostLabel);
 
         participantItems.clear();
-        if (match.participantUserIds != null) {
-            participantItems.addAll(match.participantUserIds);
+        if (match.participantEmails != null) {
+            participantItems.addAll(match.participantEmails);
         }
         participantsAdapter.notifyDataSetChanged();
     }
 
     // Join- oder Leave-Logik für den aktuellen User
     private void wireJoinLeave(DocumentReference ref, Match match) {
+        String uid = user.getUid();
         String email = user.getEmail();
-        if (email == null) {
-            Toast.makeText(this, "Keine Email gefunden.", Toast.LENGTH_LONG).show();
-            return;
-        }
 
         boolean isCancelled = match.status != null && match.status.equalsIgnoreCase("cancelled");
-        boolean isParticipant = match.participantUserIds != null && match.participantUserIds.contains(email);
+        boolean isParticipant = match.participantUserIds != null && match.participantUserIds.contains(uid);
 
         if (isCancelled) {
             btnJoin.setEnabled(false);
@@ -178,12 +175,13 @@ public class MatchDetailActivity extends AppCompatActivity {
             //User leaved
         btnJoin.setOnClickListener(v -> {
             if (isParticipant) {
-                ref.update("participantUserIds", FieldValue.arrayRemove(email))
+                ref.update("participantUserIds", FieldValue.arrayRemove(uid),
+                                "participantEmails", FieldValue.arrayRemove(email)     )
                         .addOnFailureListener(err ->
                                 Toast.makeText(this, "Leave fehlgeschlagen: " + err.getMessage(), Toast.LENGTH_LONG).show()
                         );
             } else { //User tritt bei
-                ref.update("participantUserIds", FieldValue.arrayUnion(email))
+                ref.update("participantUserIds", FieldValue.arrayUnion(uid),"participantEmails", FieldValue.arrayUnion(email))
                         .addOnFailureListener(err ->
                                 Toast.makeText(this, "Join fehlgeschlagen: " + err.getMessage(), Toast.LENGTH_LONG).show()
                         );
