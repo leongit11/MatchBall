@@ -158,10 +158,14 @@ public class MatchDetailActivity extends AppCompatActivity {
 
     // Join- oder Leave-Logik für den aktuellen User
     private void wireJoinLeave(DocumentReference ref, Match match) {
-        String uid = user.getUid();
+        String email = user.getEmail();
+        if (email == null) {
+            Toast.makeText(this, "Keine Email gefunden.", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         boolean isCancelled = match.status != null && match.status.equalsIgnoreCase("cancelled");
-        boolean isParticipant = match.participantUserIds != null && match.participantUserIds.contains(uid);
+        boolean isParticipant = match.participantUserIds != null && match.participantUserIds.contains(email);
 
         if (isCancelled) {
             btnJoin.setEnabled(false);
@@ -171,17 +175,15 @@ public class MatchDetailActivity extends AppCompatActivity {
 
         btnJoin.setEnabled(true);
         btnJoin.setText(isParticipant ? "Leave" : "Join");
-
+            //User leaved
         btnJoin.setOnClickListener(v -> {
             if (isParticipant) {
-                // User verlässt das Match
-                ref.update("participantUserIds", FieldValue.arrayRemove(uid))
+                ref.update("participantUserIds", FieldValue.arrayRemove(email))
                         .addOnFailureListener(err ->
                                 Toast.makeText(this, "Leave fehlgeschlagen: " + err.getMessage(), Toast.LENGTH_LONG).show()
                         );
-            } else {
-                // User tritt dem Match bei
-                ref.update("participantUserIds", FieldValue.arrayUnion(uid))
+            } else { //User tritt bei
+                ref.update("participantUserIds", FieldValue.arrayUnion(email))
                         .addOnFailureListener(err ->
                                 Toast.makeText(this, "Join fehlgeschlagen: " + err.getMessage(), Toast.LENGTH_LONG).show()
                         );
