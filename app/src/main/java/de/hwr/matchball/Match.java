@@ -19,7 +19,7 @@ public class Match {
     public String createdByUid;
 
     public List<String> participantUserIds;// UIDs
-    public List<String> participantEmails;
+    public List<String> participantEmails; //Speichert zusätzlich Email in Match zum anwendungszweck
     public String status;                     // open, cancelled, completed
     //public Timestamp startAt;                 // startzeit prüfen
 
@@ -45,7 +45,7 @@ public class Match {
 
         this.status = "open";
         this.participantUserIds = new ArrayList<>();
-        this.participantEmails = new ArrayList<>();
+        this.participantEmails = new ArrayList<>(); //danke
         //this.participantUserIds.add(createdByUid);
         this.createdAt = null; // Firestore setzt das serverseitig
     }

@@ -151,7 +151,7 @@ public class MatchDetailActivity extends AppCompatActivity {
 
         participantItems.clear();
         if (match.participantEmails != null) {
-            participantItems.addAll(match.participantEmails);
+            participantItems.addAll(match.participantEmails); //hier wird mail tatäschlich angezeigt
         }
         participantsAdapter.notifyDataSetChanged();
     }
@@ -159,7 +159,7 @@ public class MatchDetailActivity extends AppCompatActivity {
     // Join- oder Leave-Logik für den aktuellen User
     private void wireJoinLeave(DocumentReference ref, Match match) {
         String uid = user.getUid();
-        String email = user.getEmail();
+        String email = user.getEmail();// email anzeigen
 
         boolean isCancelled = match.status != null && match.status.equalsIgnoreCase("cancelled");
         boolean isParticipant = match.participantUserIds != null && match.participantUserIds.contains(uid);
@@ -176,7 +176,7 @@ public class MatchDetailActivity extends AppCompatActivity {
         btnJoin.setOnClickListener(v -> {
             if (isParticipant) {
                 ref.update("participantUserIds", FieldValue.arrayRemove(uid),
-                                "participantEmails", FieldValue.arrayRemove(email)     )
+                                "participantEmails", FieldValue.arrayRemove(email)    )
                         .addOnFailureListener(err ->
                                 Toast.makeText(this, "Leave fehlgeschlagen: " + err.getMessage(), Toast.LENGTH_LONG).show()
                         );

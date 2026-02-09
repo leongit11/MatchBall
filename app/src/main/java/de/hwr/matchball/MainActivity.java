@@ -43,5 +43,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, MyMatchesActivity.class));
         });
 
+        Button btnGoNotes = findViewById(R.id.btnGoNotes);
+        btnGoNotes.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, NotesActivity.class));
+        });
+
+
     }
 }
