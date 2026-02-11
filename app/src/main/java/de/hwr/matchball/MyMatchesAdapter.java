@@ -12,19 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 
- // Adapter für "My Matches" (Created & Joined). Zeigt Match-Infos + zwei Buttons: Cancel/Leave und Details.
+ // Adapter für "My Matches". Zeigt Match-Infos + zwei Buttons (UI + Klicks)
+
+// Ohne kein Verständnis vom Layout und was bei interaktionen passiert
 
 public class MyMatchesAdapter extends RecyclerView.Adapter<MyMatchesAdapter.VH> {
 
-    public interface OnActionClick {
+    public interface OnActionClick { //beide Buttons gecklickt
         void onDetails(String matchId);
         void onPrimaryAction(String matchId);// Cancel oder Leave (je nach Liste)
     }
 
-    public static class MyMatchItem {
+    public static class MyMatchItem { //Relevante Datenklasse für interaktionen
         public final String matchId;
         public final Match match;
-        public final boolean isCreatedByMe;
+        public final boolean isCreatedByMe; //  joined oder host
 
         public MyMatchItem(String matchId, Match match, boolean isCreatedByMe) {
             this.matchId = matchId;
@@ -33,25 +35,25 @@ public class MyMatchesAdapter extends RecyclerView.Adapter<MyMatchesAdapter.VH> 
         }
     }
 
-    private final List<MyMatchItem> items;
+    private final List<MyMatchItem> items; //matches die angezeigt werden sollen
     private final OnActionClick listener;
-
+//Konstruktor, daten von activity
     public MyMatchesAdapter(List<MyMatchItem> items, OnActionClick listener) {
         this.items = items;
         this.listener = listener;
     }
 
     @NonNull
-    @Override
+    @Override // erstellt eine match zeile
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_my_match, parent, false);
         return new VH(v);
     }
-
+//ordnung /wrapper
     @Override
     public void onBindViewHolder(@NonNull VH h, int position) {
-        MyMatchItem item = items.get(position);
+        MyMatchItem item = items.get(position); //richtiges item holen
         Match m = item.match;
 
         // Textfelder
@@ -69,7 +71,7 @@ public class MyMatchesAdapter extends RecyclerView.Adapter<MyMatchesAdapter.VH> 
         h.btnPrimary.setText(item.isCreatedByMe ? "Cancel" : "Leave");
         h.btnPrimary.setOnClickListener(v -> listener.onPrimaryAction(item.matchId));
     }
-
+// größe der Liste anzeigen
     @Override
     public int getItemCount() {
         return items.size();

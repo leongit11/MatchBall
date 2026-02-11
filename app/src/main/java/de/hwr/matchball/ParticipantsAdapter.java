@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 // Adapter für die Teilnehmerliste.
-// Zeigt aktuell nur einfache Strings (UIDs), ohne User-Logik oder DB-Abfragen.
+// Weiß nicht von wo die Daten kommen zeigt nur Strings an
 public class ParticipantsAdapter extends RecyclerView.Adapter<ParticipantsAdapter.VH> {
 
     // Liste der Teilnehmer (z.B. UIDs aus Firestore)
     private final List<String> items;
 
-    // Übergabe der Teilnehmerliste von außen (Activity)
+    // Übergabe der Teilnehmerliste von außen (Activity), Konstruktor soll anzeigen
     public ParticipantsAdapter(List<String> items) {
         this.items = items;
     }

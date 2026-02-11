@@ -24,19 +24,19 @@ import java.util.List;
 // Zeigt "Meine Matches" getrennt nach Created (von mir erstellt) und Joined (ich bin Teilnehmer).
 public class MyMatchesActivity extends AppCompatActivity {
 
-    private RecyclerView rvCreated, rvJoined;
+    private RecyclerView rvCreated, rvJoined; //scrollbare Listen, brauchen Adapter
     private Button btnBackAll;
 
     private MyMatchesAdapter createdAdapter, joinedAdapter;
 
-    // Wichtig: MyMatchesAdapter erwartet List<MyMatchesAdapter.MyMatchItem>
+    // listen ohne Datem
     private final List<MyMatchesAdapter.MyMatchItem> createdItems = new ArrayList<>();
     private final List<MyMatchesAdapter.MyMatchItem> joinedItems = new ArrayList<>();
 
     // Firestore Listener für Live-Updates
     private ListenerRegistration regCreated;
     private ListenerRegistration regJoined;
-
+    //Start Bildschirm geöffnet
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +63,7 @@ public class MyMatchesActivity extends AppCompatActivity {
 
         // Adapter: Created Matches (Primary = Cancel/Delete)
         createdAdapter = new MyMatchesAdapter(createdItems, new MyMatchesAdapter.OnActionClick() {
-            @Override
+            @Override //intent navigiert, übergibt matchid an details
             public void onDetails(String matchId) {
                 Intent i = new Intent(MyMatchesActivity.this, MatchDetailActivity.class);
                 i.putExtra("matchId", matchId);
@@ -85,8 +85,8 @@ public class MyMatchesActivity extends AppCompatActivity {
             }
         });
 
-        rvCreated.setLayoutManager(new LinearLayoutManager(this));
-        rvCreated.setAdapter(createdAdapter);
+        rvCreated.setLayoutManager(new LinearLayoutManager(this)); //Liste
+        rvCreated.setAdapter(createdAdapter); //Inhalt
 
         // Adapter: Joined Matches (Primary = Leave)
         joinedAdapter = new MyMatchesAdapter(joinedItems, new MyMatchesAdapter.OnActionClick() {
@@ -124,7 +124,7 @@ public class MyMatchesActivity extends AppCompatActivity {
     private void listenCreated(String myUid) {
         Query q = FirebaseFirestore.getInstance()
                 .collection("matches")
-                .whereEqualTo("createdByUid", myUid);
+                .whereEqualTo("createdByUid", myUid); //alle erstelletn
                 //.orderBy("createdAt", Query.Direction.DESCENDING);
 
         regCreated = q.addSnapshotListener((snap, e) -> {
@@ -149,9 +149,10 @@ public class MyMatchesActivity extends AppCompatActivity {
     private void listenJoined(String myUid) {
         Query q = FirebaseFirestore.getInstance()
                 .collection("matches")
-                .whereArrayContains("participantUserIds", myUid);
+                .whereArrayContains("participantUserIds", myUid); //alle joined
                 //.orderBy("createdAt", Query.Direction.DESCENDING);
 
+// wird aufgerufen beim ersten laden und jeder änderung
         regJoined = q.addSnapshotListener((snap, e) -> {
             if (e != null) {
                 Toast.makeText(this, "Fehler (Joined): " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -166,10 +167,11 @@ public class MyMatchesActivity extends AppCompatActivity {
                     joinedItems.add(new MyMatchesAdapter.MyMatchItem(doc.getId(), m, false));
                 }
             }
+            //Adapter informiert notifyDataSetChanged()
             joinedAdapter.notifyDataSetChanged();
         });
     }
-
+//Damit App nicht weiterzuhört
     @Override
     protected void onDestroy() {
         super.onDestroy();

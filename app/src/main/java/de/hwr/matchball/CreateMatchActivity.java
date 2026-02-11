@@ -74,10 +74,11 @@ public class CreateMatchActivity extends AppCompatActivity {
             Toast.makeText(this, "Bitte zuerst einloggen.", Toast.LENGTH_SHORT).show();
             return;
         }
-
         String uid = user.getUid();
-        Match match = new Match(title, date, time, location, minPlayers, notes, uid);
+        String email = user.getEmail();
+        Match match = new Match(title, date, time, location, minPlayers, notes, uid, email );
 
+        match.createdByEmail = email;
         FirebaseFirestore.getInstance()
                 .collection("matches")
                 .add(match)

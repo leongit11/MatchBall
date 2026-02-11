@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
- // Detailansicht eines einzelnen Matches.Zeigt Match-Infos und ermöglicht Join / Leave.
+ // Detailansicht eines einzelnen Matches. AppCompact ermöglicht buttons layouts lifecycle etc.
 
 public class MatchDetailActivity extends AppCompatActivity {
 
@@ -33,17 +33,17 @@ public class MatchDetailActivity extends AppCompatActivity {
     private Button btnJoin, tvBackAllMatches;
     private RecyclerView rvParticipants;
 
-    // Teilnehmerliste (Strings, aktuell UID / später Mail)
+    // Teilnehmerliste reine Daten, Adapter verbindet Datenmodell und UI
     private final List<String> participantItems = new ArrayList<>();
     private ParticipantsAdapter participantsAdapter;
 
-    // Aktuell eingeloggter User und Match-ID
+    // Aktuell eingeloggter User und Match-ID aus Firebase
     private FirebaseUser user;
     private String matchId;
 
     // Firestore Listener für Live-Updates
     private ListenerRegistration registration;
-
+//Einstiegspunkt, wird inizialisiert und XML geladen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,8 +98,8 @@ public class MatchDetailActivity extends AppCompatActivity {
     // Initialisiert RecyclerView für Teilnehmer
     private void setupParticipantsList() {
         participantsAdapter = new ParticipantsAdapter(participantItems);
-        rvParticipants.setLayoutManager(new LinearLayoutManager(this));
-        rvParticipants.setAdapter(participantsAdapter);
+        rvParticipants.setLayoutManager(new LinearLayoutManager(this)); //wie anzeigen
+        rvParticipants.setAdapter(participantsAdapter);//was anzeigen
     }
 
     // Lauscht auf Änderungen am Match-Dokument in Firestore
@@ -147,8 +147,8 @@ public class MatchDetailActivity extends AppCompatActivity {
         } else {
             hostLabel = match.createdByUid != null ? match.createdByUid : "-";
         }
-        tvCreatedBy.setText("Created by: " + hostLabel);
-
+        tvCreatedBy.setText("Created by: " + match.createdByEmail);
+//Firestore liefert neue liste adapter wird informiert
         participantItems.clear();
         if (match.participantEmails != null) {
             participantItems.addAll(match.participantEmails); //hier wird mail tatäschlich angezeigt
@@ -180,7 +180,7 @@ public class MatchDetailActivity extends AppCompatActivity {
                         .addOnFailureListener(err ->
                                 Toast.makeText(this, "Leave fehlgeschlagen: " + err.getMessage(), Toast.LENGTH_LONG).show()
                         );
-            } else { //User tritt bei
+            } else { //User tritt bei wenn noch nicht vorhanden
                 ref.update("participantUserIds", FieldValue.arrayUnion(uid),"participantEmails", FieldValue.arrayUnion(email))
                         .addOnFailureListener(err ->
                                 Toast.makeText(this, "Join fehlgeschlagen: " + err.getMessage(), Toast.LENGTH_LONG).show()
@@ -188,7 +188,7 @@ public class MatchDetailActivity extends AppCompatActivity {
             }
         });
     }
-
+// onDestroy zur Sicherheit, keine Leaks
     @Override
     protected void onDestroy() {
         super.onDestroy();

@@ -20,8 +20,9 @@ public class Match {
 
     public List<String> participantUserIds;// UIDs
     public List<String> participantEmails; //Speichert zusätzlich Email in Match zum anwendungszweck
-    public String status;                     // open, cancelled, completed
-    //public Timestamp startAt;                 // startzeit prüfen
+    public String status;// open, cancelled, completed
+    //public Timestamp startAt; startzeit prüfen
+    public String createdByEmail;
 
 
 
@@ -32,7 +33,7 @@ public class Match {
     public Match() {}
 
     public Match(String title, String date, String time, String location,
-                 int minPlayers, String notes, String createdByUid) {
+                 int minPlayers, String notes, String createdByUid, String createdByEmail) {
         this.title = title;
         this.date = date;
         this.time = time;
@@ -40,6 +41,7 @@ public class Match {
         this.minPlayers = minPlayers;
         this.notes = notes;
         this.createdByUid = createdByUid;
+        this.createdByEmail = createdByEmail;
         //this.startAt = startAt;
 
 
