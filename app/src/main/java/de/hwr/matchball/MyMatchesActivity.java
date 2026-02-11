@@ -99,15 +99,21 @@ public class MyMatchesActivity extends AppCompatActivity {
 
             @Override
             public void onPrimaryAction(String matchId) {
-                // Leave = eigene UID aus participantUserIds entfernen
+                String myEmail = user.getEmail(); // user ist oben in onCreate
+                if (myEmail == null) myEmail = "";
+
                 FirebaseFirestore.getInstance()
                         .collection("matches")
                         .document(matchId)
-                        .update("participantUserIds", FieldValue.arrayRemove(myUid))
+                        .update(
+                                "participantUserIds", FieldValue.arrayRemove(myUid),
+                                "participantEmails", FieldValue.arrayRemove(myEmail)
+                        )
+                        .addOnSuccessListener(unused ->
+                                Toast.makeText(MyMatchesActivity.this, "Left match.", Toast.LENGTH_SHORT).show()
+                        )
                         .addOnFailureListener(e ->
-                                Toast.makeText(MyMatchesActivity.this,
-                                        "Leave fehlgeschlagen: " + e.getMessage(),
-                                        Toast.LENGTH_LONG).show()
+                                Toast.makeText(MyMatchesActivity.this, "Leave fehlgeschlagen: " + e.getMessage(), Toast.LENGTH_LONG).show()
                         );
             }
         });
