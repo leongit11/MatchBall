@@ -69,17 +69,17 @@ public class CreateMatchActivity extends AppCompatActivity {
             return;
         }
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //Login Prüfung
         if (user == null) {
             Toast.makeText(this, "Bitte zuerst einloggen.", Toast.LENGTH_SHORT).show();
             return;
         }
-        String uid = user.getUid();
+        String uid = user.getUid(); //Zuordnung für MyMatch etc.
         String email = user.getEmail();
         Match match = new Match(title, date, time, location, minPlayers, notes, uid, email );
 
         match.createdByEmail = email;
-        FirebaseFirestore.getInstance()
+        FirebaseFirestore.getInstance() //Schnittstelle
                 .collection("matches")
                 .add(match)
                 .addOnSuccessListener(docRef -> {

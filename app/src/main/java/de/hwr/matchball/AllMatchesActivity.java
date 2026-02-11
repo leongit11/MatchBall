@@ -48,7 +48,7 @@ public class AllMatchesActivity extends AppCompatActivity {
         }); // Klick navigiert zu Match Details Activity
 
         rvMatches.setLayoutManager(new LinearLayoutManager(this));
-        rvMatches.setAdapter(adapter);
+        rvMatches.setAdapter(adapter); //erstellt views und füllt aus
 
         listenForMatches();
     }

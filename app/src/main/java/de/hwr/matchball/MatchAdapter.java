@@ -35,13 +35,13 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchViewHol
     }
 
     @NonNull
-    @Override
+    @Override //Baut Zeilen aus XML
     public MatchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_match, parent, false);
         return new MatchViewHolder(view);
     }
 
-    @Override
+    @Override //Tüllt Zeilen mit Daten
     public void onBindViewHolder(@NonNull MatchViewHolder holder, int position) {
         MatchListItem item = items.get(position);
         Match m = item.match;
@@ -54,7 +54,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchViewHol
         holder.itemView.setOnClickListener(v -> listener.onClick(item.id));
     }
 
-    @Override
+    @Override //Wie viele Item gibt es
     public int getItemCount() {
         return items.size();
     }
