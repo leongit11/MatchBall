@@ -92,14 +92,14 @@ public class MyMatchesActivity extends AppCompatActivity {
         joinedAdapter = new MyMatchesAdapter(joinedItems, new MyMatchesAdapter.OnActionClick() {
             @Override
             public void onDetails(String matchId) {
-                Intent i = new Intent(MyMatchesActivity.this, MatchDetailActivity.class);
+                Intent i = new Intent(MyMatchesActivity.this, MatchDetailActivity.class); //datenpbergabe zu activity
                 i.putExtra("matchId", matchId);
-                startActivity(i);
+                startActivity(i); //startet activity
             }
 
             @Override
             public void onPrimaryAction(String matchId) {
-                String myEmail = user.getEmail(); // user ist oben in onCreate
+                String myEmail = user.getEmail(); // email holen um aus Match zu entfernen
                 if (myEmail == null) myEmail = "";
 
                 FirebaseFirestore.getInstance()
@@ -107,7 +107,7 @@ public class MyMatchesActivity extends AppCompatActivity {
                         .document(matchId)
                         .update(
                                 "participantUserIds", FieldValue.arrayRemove(myUid),
-                                "participantEmails", FieldValue.arrayRemove(myEmail)
+                                "participantEmails", FieldValue.arrayRemove(myEmail) // UId und email entfernen
                         )
                         .addOnSuccessListener(unused ->
                                 Toast.makeText(MyMatchesActivity.this, "Left match.", Toast.LENGTH_SHORT).show()
@@ -133,13 +133,14 @@ public class MyMatchesActivity extends AppCompatActivity {
                 .whereEqualTo("createdByUid", myUid); //alle erstelletn
                 //.orderBy("createdAt", Query.Direction.DESCENDING);
 
+        //wenn leer, einträge entfernen
         regCreated = q.addSnapshotListener((snap, e) -> {
             if (e != null) {
                 Toast.makeText(this, "Fehler (Created): " + e.getMessage(), Toast.LENGTH_LONG).show();
                 return;
             }
             if (snap == null) return;
-
+// alle dokumente durchgehen, true -> von User etsellt
             createdItems.clear();
             for (DocumentSnapshot doc : snap.getDocuments()) {
                 Match m = doc.toObject(Match.class);
@@ -158,7 +159,7 @@ public class MyMatchesActivity extends AppCompatActivity {
                 .whereArrayContains("participantUserIds", myUid); //alle joined
                 //.orderBy("createdAt", Query.Direction.DESCENDING);
 
-// wird aufgerufen beim ersten laden und jeder änderung
+// Läd Matches wo ich Teilnehmer bin, wird aufgerufen beim ersten laden und jeder änderung
         regJoined = q.addSnapshotListener((snap, e) -> {
             if (e != null) {
                 Toast.makeText(this, "Fehler (Joined): " + e.getMessage(), Toast.LENGTH_LONG).show();
