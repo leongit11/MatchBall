@@ -40,6 +40,7 @@ public class MatchDetailActivity extends AppCompatActivity {
     // Aktuell eingeloggter User und Match-ID aus Firebase
     private FirebaseUser user;
     private String matchId;
+    private TextView tvPricePerPerson;
 
     // Firestore Listener für Live-Updates
     private ListenerRegistration registration;
@@ -93,6 +94,7 @@ public class MatchDetailActivity extends AppCompatActivity {
         tvCreatedBy = findViewById(R.id.tvCreatedBy);
         rvParticipants = findViewById(R.id.rvParticipants);
         btnJoin = findViewById(R.id.btnJoin);
+        tvPricePerPerson = findViewById(R.id.tvPricePerPerson);
     }
 
     // Initialisiert RecyclerView für Teilnehmer
@@ -154,6 +156,21 @@ public class MatchDetailActivity extends AppCompatActivity {
             participantItems.addAll(match.participantEmails); //hier wird mail tatäschlich angezeigt
         }
         participantsAdapter.notifyDataSetChanged();
+
+        int participants = 0;
+
+        if (match.participantUserIds != null) {
+            participants = match.participantUserIds.size();
+        }
+
+        if (participants == 0) {
+            participants = 1; // Host alleine
+        }
+        double pricePerPerson = match.totalPrice / participants;
+
+        tvPricePerPerson.setText(
+                "Preis pro Person: " + String.format("%.1f", pricePerPerson) + " €"
+        );
     }
 
     // Join- oder Leave-Logik für den aktuellen User

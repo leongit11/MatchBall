@@ -23,6 +23,7 @@ public class Match {
     public String status;// open, cancelled, completed
     //public Timestamp startAt; startzeit prüfen
     public String createdByEmail;
+    public double totalPrice; // Gesamtpreis für kostenfunktion
 
 
 
@@ -33,7 +34,7 @@ public class Match {
     public Match() {}
 
     public Match(String title, String date, String time, String location,
-                 int minPlayers, String notes, String createdByUid, String createdByEmail) {
+                 int minPlayers, String notes, String createdByUid, String createdByEmail, double totalPrice) {
         this.title = title;
         this.date = date;
         this.time = time;
@@ -42,6 +43,7 @@ public class Match {
         this.notes = notes;
         this.createdByUid = createdByUid;
         this.createdByEmail = createdByEmail;
+        this.totalPrice = totalPrice;
         //this.startAt = startAt;
 
 

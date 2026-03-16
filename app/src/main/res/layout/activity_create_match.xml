@@ -35,6 +35,13 @@
             android:layout_marginTop="12dp" />
 
         <EditText
+            android:id="@+id/Price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Total Price"
+            android:inputType="numberDecimal"/>
+
+        <EditText
             android:id="@+id/Time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

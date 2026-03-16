@@ -81,6 +81,18 @@
         app:layout_constraintTop_toBottomOf="@id/tvMatchLocation" />
 
     <TextView
+        android:id="@+id/tvPricePerPerson"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Preis pro Person: -"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/tvCreatedBy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
         android:id="@+id/tvParticipantsHeader"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

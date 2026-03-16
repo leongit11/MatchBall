@@ -19,7 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class CreateMatchActivity extends AppCompatActivity {
 
-    private EditText Title, Date, Time, Location, MinPlayers, Notes;
+    private EditText Title, Date, Time, Location, MinPlayers, Notes, Price;
     private Button btnCreate;
 
 
@@ -42,6 +42,7 @@ public class CreateMatchActivity extends AppCompatActivity {
         Location = findViewById(R.id.Location);
         MinPlayers = findViewById(R.id.MinPlayers);
         Notes = findViewById(R.id.Notes);
+        Price = findViewById(R.id.Price);
 
         btnCreate = findViewById(R.id.btnCreate);
 
@@ -55,8 +56,10 @@ public class CreateMatchActivity extends AppCompatActivity {
         String location = Location.getText().toString().trim();
         String minPlayersStr = MinPlayers.getText().toString().trim();
         String notes = Notes.getText().toString().trim();
+        String priceStr = Price.getText().toString().trim();
 
-        if (title.isEmpty() || date.isEmpty() || time.isEmpty() || location.isEmpty() || minPlayersStr.isEmpty()) {
+        if (title.isEmpty() || date.isEmpty() || time.isEmpty() || location.isEmpty()
+                || minPlayersStr.isEmpty() || priceStr.isEmpty()) {
             Toast.makeText(this, "Bitte alle Pflichtfelder ausfüllen.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -69,17 +72,28 @@ public class CreateMatchActivity extends AppCompatActivity {
             return;
         }
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); //Login Prüfung
+        double totalPrice;
+        try {
+            totalPrice = Double.parseDouble(priceStr);
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Preis muss eine Zahl sein.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
             Toast.makeText(this, "Bitte zuerst einloggen.", Toast.LENGTH_SHORT).show();
             return;
         }
-        String uid = user.getUid(); //Zuordnung für MyMatch etc.
+
+        String uid = user.getUid();
         String email = user.getEmail();
-        Match match = new Match(title, date, time, location, minPlayers, notes, uid, email );
+
+        Match match = new Match(title, date, time, location, minPlayers, notes, uid, email, totalPrice);
 
         match.createdByEmail = email;
-        FirebaseFirestore.getInstance() //Schnittstelle
+
+        FirebaseFirestore.getInstance()
                 .collection("matches")
                 .add(match)
                 .addOnSuccessListener(docRef -> {
@@ -90,5 +104,4 @@ public class CreateMatchActivity extends AppCompatActivity {
                     Toast.makeText(this, "Fehler: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 });
     }
-
 }
