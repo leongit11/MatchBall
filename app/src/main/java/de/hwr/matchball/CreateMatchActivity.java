@@ -1,5 +1,6 @@
 package de.hwr.matchball;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -28,6 +29,14 @@ public class CreateMatchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_create_match);
+        Button btnHomeCreateMatch = findViewById(R.id.btnHomeCreateMatch);
+
+        btnHomeCreateMatch.setOnClickListener(v -> {
+            Intent intent = new Intent(CreateMatchActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+        });
+
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

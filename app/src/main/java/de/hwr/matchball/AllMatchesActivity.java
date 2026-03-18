@@ -48,6 +48,13 @@ public class AllMatchesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_all_matches);
+        Button btnHomeAllMatches = findViewById(R.id.btnHomeAllMatches);
+
+        btnHomeAllMatches.setOnClickListener(v -> {
+            Intent intent = new Intent(AllMatchesActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+        });
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
